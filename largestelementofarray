@@ -1,0 +1,12 @@
+class Solution {
+    public static int largest(int[] arr) {
+        int largest = arr[0]; // Correct variable name
+        for (int i = 1; i < arr.length; i++) { // Use arr.length
+            if (arr[i] > largest) { // Correct variable name
+                largest = arr[i];
+            }
+           // Use double quotes for strings
+        }
+        return largest; // Add return statement
+    }
+}
