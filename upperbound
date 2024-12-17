@@ -1,0 +1,21 @@
+public class Solution {
+    public static int[] getFloorAndCeil(int[] a, int n, int x) {
+     int floor = -1;
+        int ceil = -1;
+
+        // Iterate through the array to find floor and ceil
+        for (int num : a) {
+            // Check if num is smaller than or equal to x
+            if (num <= x && (floor == -1 || num > floor)) {
+                floor = num;
+            }
+            // Check if num is greater than or equal to x
+            if (num >= x && (ceil == -1 || num < ceil)) {
+                ceil = num;
+            }
+        }
+
+        // Return the floor and ceil as an array
+        return new int[]{floor, ceil};
+    }
+}
