@@ -1,0 +1,13 @@
+class Solution {
+    public int findMin(int[] nums) {
+           for (int i = 1; i < nums.length; i++) {
+            // Check if the current element is smaller than the previous one
+            if (nums[i] < nums[i - 1]) {
+                return nums[i];  // Return the element as the minimum
+            }
+        }
+        // If no such element is found, the array is not rotated, so the first element is the minimum
+        return nums[0];
+    }
+
+}
