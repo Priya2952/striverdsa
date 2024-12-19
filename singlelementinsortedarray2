@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+
+public class Tuf {
+    public static int singleNonDuplicate(ArrayList<Integer> arr) {
+        int n = arr.size(); // Size of the array.
+
+        // Handle edge cases:
+        if (n == 1) return arr.get(0); // Single element array.
+        if (!arr.get(0).equals(arr.get(1))) return arr.get(0); // Unique element is the first element.
+        if (!arr.get(n - 1).equals(arr.get(n - 2))) return arr.get(n - 1); // Unique element is the last element.
+
+        int low = 1, high = n - 2; // Start binary search in the middle of the array.
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            // Check if the current element is the single non-duplicate:
+            if (!arr.get(mid).equals(arr.get(mid + 1)) && !arr.get(mid).equals(arr.get(mid - 1))) {
+                return arr.get(mid);
+            }
+
+            // Determine the side to search:
+            if ((mid % 2 == 1 && arr.get(mid).equals(arr.get(mid - 1))) || 
+                (mid % 2 == 0 && arr.get(mid).equals(arr.get(mid + 1)))) {
+                // Move to the right half:
+                low = mid + 1;
+            } else {
+                // Move to the left half:
+                high = mid - 1;
+            }
+        }
+
+        // The unique element should always be found in the loop.
+        throw new IllegalArgumentException("Input does not meet the problem constraints.");
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        arr.add(1); arr.add(1); arr.add(2); arr.add(3); arr.add(3); arr.add(4); arr.add(4); arr.add(8); arr.add(8);
+
+        System.out.println(singleNonDuplicate(arr)); // Output: 2
+
+        ArrayList<Integer> arr2 = new ArrayList<>();
+        arr2.add(3); arr2.add(3); arr2.add(7); arr2.add(7); arr2.add(10); arr2.add(11); arr2.add(11);
+
+        System.out.println(singleNonDuplicate(arr2)); // Output: 10
+    }
+}
