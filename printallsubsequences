@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Subsequences {
+
+    // Function to find all subsequences of the array
+    public static void findSubsequences(int[] arr, int index, List<Integer> current) {
+        // Base condition: if we have traversed the entire array
+        if (index == arr.length) {
+            System.out.println(current);
+            return;
+        }
+
+        // Include the current element in the subsequence
+        current.add(arr[index]);
+        findSubsequences(arr, index + 1, current);
+
+        // Backtrack: exclude the current element from the subsequence
+        current.remove(current.size() - 1);
+        findSubsequences(arr, index + 1, current);
+    }
+
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3}; // Example input array
+        List<Integer> current = new ArrayList<>();
+        findSubsequences(array, 0, current);
+    }
+}
