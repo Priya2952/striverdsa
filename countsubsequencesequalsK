@@ -1,0 +1,37 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class CountSubsequencesWithSumK {
+    public static int countSubsequencesWithSum(int[] arr, int index, List<Integer> current, int sum, int target) {
+        // Base case: if we reach the end of the array
+        if (index == arr.length) {
+            if (sum == target) {
+                return 1; // Found one valid subsequence
+            }
+            return 0; // No valid subsequence
+        }
+
+        // Include the current element
+        current.add(arr[index]);
+        sum = sum + arr[index];
+        int includeCount = countSubsequencesWithSum(arr, index + 1, current, sum, target);
+
+        // Backtrack: remove the current element and exclude it
+        current.remove(current.size() - 1);
+        sum = sum - arr[index]; // Restore the sum
+
+        // Exclude the current element
+        int excludeCount = countSubsequencesWithSum(arr, index + 1, current, sum, target);
+
+        // Return the total count of valid subsequences
+        return includeCount + excludeCount;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 1};
+        int k = 2;
+        List<Integer> current = new ArrayList<>();
+        int count = countSubsequencesWithSum(arr, 0, current, 0, k);
+        System.out.println("Number of subsequences with sum " + k + ": " + count);
+    }
+}
