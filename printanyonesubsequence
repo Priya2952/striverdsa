@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class AnySubsequenceWithSumK {
+    public static boolean findOneSubsequenceWithSum(int[] arr, int index, List<Integer> current, int sum, int target) {
+        // Base case: if we reach the end of the array
+        if (index == arr.length) {
+            if (sum == target) {
+                System.out.println(current);
+                return true; // Subsequence found
+            }
+            return false; // Continue searching
+        }
+
+        // **Step 1: Include the current element**
+        current.add(arr[index]);       // Add current element
+        sum = sum + arr[index];        // Update sum
+        if (findOneSubsequenceWithSum(arr, index + 1, current, sum, target)) {
+            return true; // If a valid subsequence is found, stop further recursion
+        }
+        sum = sum - arr[index];        // Backtrack sum
+        current.remove(current.size() - 1); // Backtrack list
+
+        // **Step 2: Exclude the current element**
+        if (findOneSubsequenceWithSum(arr, index + 1, current, sum, target)) {
+            return true; // If a valid subsequence is found, stop further recursion
+        }
+
+        return false; // No valid subsequence found in this path
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 1};
+        int k = 2;
+        List<Integer> current = new ArrayList<>();
+        if (!findOneSubsequenceWithSum(arr, 0, current, 0, k)) {
+            System.out.println("No subsequence found with sum " + k);
+        }
+    }
+}
