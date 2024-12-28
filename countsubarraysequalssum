@@ -1,0 +1,27 @@
+public class CountSubarraysWithSumK {
+    public static int countSubarraysWithSum(int[] arr, int k) {
+        int count = 0;
+        
+        // Iterate over all subarrays
+        for (int start = 0; start < arr.length; start++) {
+            int sum = 0;
+            // Calculate sum for each subarray starting from 'start' index
+            for (int end = start; end < arr.length; end++) {
+                sum += arr[end];
+                // If the sum of the current subarray equals k, increment the count
+                if (sum == k) {
+                    count++;
+                }
+            }
+        }
+        
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 1};
+        int k = 2;
+        int count = countSubarraysWithSum(arr, k);
+        System.out.println("Number of subarrays with sum " + k + ": " + count);
+    }
+}
