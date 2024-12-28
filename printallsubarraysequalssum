@@ -1,0 +1,26 @@
+public class PrintSubarraysWithSumK {
+    public static void printSubarraysWithSum(int[] arr, int k) {
+        // Iterate over all possible starting points of subarrays
+        for (int start = 0; start < arr.length; start++) {
+            int sum = 0;
+            // Iterate over all possible ending points of subarrays
+            for (int end = start; end < arr.length; end++) {
+                sum += arr[end]; // Add current element to sum
+                // Check if the current subarray sum equals k
+                if (sum == k) {
+                    // Print the subarray from index 'start' to 'end'
+                    for (int i = start; i <= end; i++) {
+                        System.out.print(arr[i] + " ");
+                    }
+                    System.out.println(); // Move to the next line after printing a subarray
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 1};
+        int k = 2;
+        printSubarraysWithSum(arr, k);
+    }
+}
