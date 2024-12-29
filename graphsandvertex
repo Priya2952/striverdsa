@@ -1,0 +1,10 @@
+class Solution {
+    static long count(int n) {
+    int totaledges = n*(n-1)/2 ;
+    long totalgraphs = (long) Math.pow(2,totaledges);
+      
+       return totalgraphs;
+  }
+  
+  
+}
