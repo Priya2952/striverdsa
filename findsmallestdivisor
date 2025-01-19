@@ -1,0 +1,36 @@
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+         int low = 1;
+        int high = findMax(nums); // Use a helper function to find the max value in the array
+        
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (getSum(nums, mid) > threshold) {
+                low = mid + 1; // Increase divisor
+            } else {
+                high = mid; // Decrease divisor
+            }
+        }
+        return low; // Smallest divisor
+    }
+    
+    private static int getSum(int[] nums, int divisor) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += (num + divisor - 1) / divisor; // Equivalent to Math.ceil(num / divisor)
+        }
+        return sum;
+    }
+    
+    private static int findMax(int[] nums) {
+        int max = nums[0]; // Assume the first element is the largest
+        for (int num : nums) {
+            if (num > max) {
+                max = num; // Update max if a larger value is found
+            }
+        }
+        return max;
+    }
+
+    
+}
