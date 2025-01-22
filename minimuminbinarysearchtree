@@ -1,0 +1,17 @@
+class Solution {
+    // Function to find the minimum element in the given BST.
+    int minValue(Node root) {
+        // Check if the tree is empty
+        if (root == null) {
+            return -1; // Return -1 or an appropriate value for empty trees
+        }
+
+        // Traverse to the leftmost node
+        while (root.left != null) {
+            root = root.left;
+        }
+
+        // The leftmost node contains the minimum value
+        return root.data;
+    }
+}
