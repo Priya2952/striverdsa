@@ -1,0 +1,19 @@
+while (root != null) {
+            if (root.data == key) {
+                // If the key matches the current node's value, return it as the ceil.
+                return root.data;
+            }
+
+            if (key > root.data) {
+                // If the key is greater, move to the right subtree.
+                root = root.right;
+            } else {
+                // If the key is smaller, the current node is a potential ceil.
+                ceil = root.data;
+                root = root.left;
+            }
+        }
+
+        return ceil; // Return the ceil if found; otherwise, return -1.
+    }
+}
