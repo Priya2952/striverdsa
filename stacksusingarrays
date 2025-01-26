@@ -1,0 +1,26 @@
+    private int[] arr;
+    private int top;
+    private static final int MAX_SIZE = 1000; // Maximum size of the stack
+
+    public MyStack() {
+        arr = new int[MAX_SIZE];
+        top = -1;
+    }
+
+    // Push an element onto the stack
+    public void push(int x) {
+        if (top == MAX_SIZE - 1) {
+            // Stack overflow is not expected in the problem's context, so no exception here
+            return;
+        }
+        arr[++top] = x;
+    }
+
+    // Pop an element from the stack
+    public int pop() {
+        if (top == -1) {
+            return -1; // Return -1 when the stack is empty
+        }
+        return arr[top--];
+    }
+}
