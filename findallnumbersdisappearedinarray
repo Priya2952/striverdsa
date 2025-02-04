@@ -1,0 +1,35 @@
+class Solution {
+  
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
+        int i = 0;
+
+        // Step 1: Cyclic Sort
+        while (i < nums.length) {
+            int correctIndex = nums[i] - 1;
+
+            // Only swap if the element is not in its correct position and is within the valid range
+            if (nums[i] != nums[correctIndex] && nums[i] >= 1 && nums[i] <= nums.length) {
+                swap(nums, i, correctIndex);
+            } else {
+                i++;
+            }
+        }
+
+        // Step 2: Find missing numbers
+        List<Integer> missingNumbers = new ArrayList<>();
+        for (i = 0; i < nums.length; i++) {
+            if (nums[i] != i + 1) {
+                missingNumbers.add(i + 1); // The missing number
+            }
+        }
+
+        return missingNumbers;
+    }
+
+    // Helper function to swap elements
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
