@@ -1,0 +1,26 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int i = 0;
+        
+        // Cyclic Sort to place elements at correct positions
+        while (i < nums.length) {
+            if (nums[i] != i + 1) {  // Only swap if nums[i] is not at its correct index
+                int correctIndex = nums[i] - 1;  // The index where nums[i] should be
+
+                if (nums[i] != nums[correctIndex]) { 
+                    // Swap nums[i] with nums[correctIndex]
+                    int temp = nums[i];
+                    nums[i] = nums[correctIndex];
+                    nums[correctIndex] = temp;
+                } else {
+                    // If nums[i] is already equal to nums[correctIndex], it's a duplicate
+                    return nums[i];  
+                }
+            } else {
+                i++;
+            }
+        }
+
+        return -1; // Should never reach here since a duplicate is guaranteed
+    }
+}
