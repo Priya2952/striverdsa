@@ -1,0 +1,35 @@
+class Solution {
+    static final int MOD = 1000000007; // Define Modulo (10^9 + 7)
+
+    // **Top-Down Approach (Memoization)**
+    static long topDown(int n, long[] dp) {
+        if (n <= 1) {
+            return n;
+        }
+        if (dp[n] != -1) {  // If already computed, return stored value
+            return dp[n];
+        }
+        dp[n] = (topDown(n - 1, dp) + topDown(n - 2, dp)) % MOD; // Store result
+        return dp[n];
+    }
+
+    static long topDown(int n) {
+        long[] dp = new long[n + 1];
+        java.util.Arrays.fill(dp, -1); // Initialize dp array with -1
+        return topDown(n, dp);
+    }
+
+    // **Bottom-Up Approach (Tabulation)**
+    static long bottomUp(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        long prev2 = 0, prev1 = 1;
+        for (int i = 2; i <= n; i++) {
+            long curr = (prev1 + prev2) % MOD; // Use modulo to avoid overflow
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return prev1;
+    }
+}
