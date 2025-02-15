@@ -1,0 +1,27 @@
+import java.util.Arrays;
+
+class Solution {
+    int minCost(int[] height) {
+        int n = height.length;
+        int[] dp = new int[n]; // Memoization array
+        Arrays.fill(dp, -1); // Initialize with -1 (uncomputed)
+
+        return findMinCost(n - 1, height, dp); // Start from last stair
+    }
+
+    int findMinCost(int i, int[] height, int[] dp) {
+        if (i == 0) return 0; // Base case: already at first stair
+        if (dp[i] != -1) return dp[i]; // Return if already computed
+
+        int oneStep = findMinCost(i - 1, height, dp) + Math.abs(height[i] - height[i - 1]);
+        int twoStep = (i > 1) ? findMinCost(i - 2, height, dp) + Math.abs(height[i] - height[i - 2]) : Integer.MAX_VALUE;
+
+        return dp[i] = Math.min(oneStep, twoStep); // Store and return minimum cost
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] heights = {30, 20, 50, 10, 40};
+        System.out.println(sol.minCost(heights)); // Output: 30
+    }
+}
