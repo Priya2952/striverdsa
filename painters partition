@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+
+public class Solution {
+    public static int findLargestMinDistance(ArrayList<Integer> boards, int k) {
+        int low = Integer.MIN_VALUE, high = 0;
+        
+        // Compute initial bounds
+        for (int board : boards) {
+            low = Math.max(low, board); // Max board length (min possible time)
+            high += board;              // Sum of all board lengths (max possible time)
+        }
+
+        // Binary Search on Answer
+        while (low < high) {
+            int mid = (low + high) / 2;
+
+            if (canPaint(boards, k, mid)) {
+                high = mid; // Try to minimize the maximum workload
+            } else {
+                low = mid + 1;
+            }
+        }
+        
+        return low;
+    }
+
+    // Helper function to check if we can allocate boards with maxTime limit
+    private static boolean canPaint(ArrayList<Integer> boards, int k, int maxTime) {
+        int painters = 1, timeSpent = 0;
+
+        for (int board : boards) {
+            if (timeSpent + board > maxTime) {
+                painters++;  // Assign a new painter
+                timeSpent = board; // Start new allocation
+
+                if (painters > k) return false; // Exceeded allowed painters
+            } else {
+                timeSpent += board;
+            }
+        }
+        
+        return true;
+    }
+}
