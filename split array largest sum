@@ -1,0 +1,42 @@
+public class Solution {
+    public static int splitArray(int[] nums, int k) {
+        int low = Integer.MIN_VALUE, high = 0;
+        
+        // Initialize search boundaries
+        for (int num : nums) {
+            low = Math.max(low, num); // max(nums)
+            high += num;              // sum(nums)
+        }
+
+        // Binary search to find the minimum largest sum
+        while (low < high) {
+            int mid = (low + high) / 2;
+            
+            if (canSplit(nums, k, mid)) {
+                high = mid; // Try to minimize the largest sum
+            } else {
+                low = mid + 1;
+            }
+        }
+        
+        return low;
+    }
+
+    // Helper function to check if we can split into at most k subarrays with max sum ≤ mid
+    private static boolean canSplit(int[] nums, int k, int maxSum) {
+        int subarrays = 1, currentSum = 0;
+
+        for (int num : nums) {
+            if (currentSum + num > maxSum) {
+                subarrays++; // Start a new subarray
+                currentSum = num;
+                
+                if (subarrays > k) return false; // Too many subarrays
+            } else {
+                currentSum += num;
+            }
+        }
+        
+        return true;
+    }
+}
