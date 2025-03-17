@@ -1,0 +1,30 @@
+class Solution{
+    static List<Integer> get(int a,int b)
+    {
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
+        
+        return Arrays.asList(a,b);
+    }
+}
+
+
+
+
+import java.util.*;
+
+class Solution {
+    static List<Integer> get(int a, int b) {
+        a = a + b; // Step 1: a becomes sum of both numbers
+        b = a - b; // Step 2: b becomes the original a
+        a = a - b; // Step 3: a becomes the original b
+        
+        return Arrays.asList(a, b);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(get(13, 9));  // Output: [9, 13]
+        System.out.println(get(15, 8));  // Output: [8, 15]
+    }
+}
