@@ -1,0 +1,21 @@
+class Solution {
+    static void reArrange(int[] arr, int N) {
+       int i = 0;
+       int j = 1;
+       while (i < N && j < N) {
+            if (arr[i] % 2 == 0) {
+                i += 2; // Correctly placed even number
+            } else if (arr[j] % 2 == 1) {
+                j += 2; // Correctly placed odd number
+            } else {
+                // Swap misplaced odd at i and even at j
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+
+                i += 2;
+                j += 2;
+            }
+        }
+    }
+}
