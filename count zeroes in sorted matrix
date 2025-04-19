@@ -1,0 +1,19 @@
+class GfG
+{
+    
+    int countZeros(int A[][], int N)
+    {
+       int row = 0;
+       int column = N-1;
+       int count = 0;
+       while(row < N && column >=0){
+           if(A[row][column]==0){
+               count += column +1;
+               row ++;
+           }else{
+               column--;
+           }
+       }
+       return count;
+    }
+}
