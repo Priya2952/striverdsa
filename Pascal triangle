@@ -1,0 +1,22 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> triangle = new ArrayList<>();
+        
+        for (int row = 1; row <= numRows; row++) {
+            List<Integer> currentRow = new ArrayList<>();
+            long value = 1;
+            currentRow.add((int)value); // first element is always 1
+            
+            for (int col = 1; col < row; col++) {
+                // Compute next element based on previous using binomial coefficient relation
+                value = value * (row - col) / col;
+                currentRow.add((int)value);
+            }
+            
+            triangle.add(currentRow);
+        }
+        
+        return triangle;
+    }
+}
+    
