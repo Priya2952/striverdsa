@@ -1,0 +1,35 @@
+class Solution {
+    public int aggressiveCows(int[] nums, int k) {
+        Arrays.sort(nums);
+        int low = 1;
+        int high = nums[nums.length - 1] - nums[0];
+        int ans = 0;
+        while(low <= high){
+            int mid = low +(high - low)/2;
+            if(isPossible(nums, k , mid)) {
+                ans = mid;
+                low = mid + 1;
+            }else{
+                high = mid - 1;
+            }
+        }
+
+        return ans;
+    }
+
+    private boolean isPossible(int[] nums, int k, int mid){
+        int count = 1;
+        int lastpos = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] - lastpos >= mid){
+                count++;
+                lastpos = nums[i];
+                if(count == k){
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+}
