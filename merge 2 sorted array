@@ -1,0 +1,29 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+     
+        // Initialize three pointers:
+        // i -> Last index of the first m elements in nums1
+        // j -> Last index of nums2
+        // k -> Last index of nums1 (combined size m + n)
+        int i = m - 1;
+        int j = n - 1;
+        int k = m + n - 1;
+        
+        // While there are elements in both nums1 and nums2 to compare
+        while (i >= 0 && j >= 0) {
+            // Compare the elements from nums1 and nums2 from the end and place the larger one in the last available spot in nums1
+            if (nums1[i] > nums2[j]) {
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
+            }
+        }
+        
+        // If there are remaining elements in nums2, copy them into nums1
+        while (j >= 0) {
+            nums1[k--] = nums2[j--];
+        }
+        
+        
+    }
+}
