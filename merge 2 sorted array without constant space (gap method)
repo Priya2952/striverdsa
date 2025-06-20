@@ -1,0 +1,47 @@
+public class MergeGapMethod {
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        // Step 1: Copy nums2 into the end of nums1
+        for (int i = 0; i < n; i++) {
+            nums1[m + i] = nums2[i];
+        }
+
+        // Step 2: Apply the Gap method on nums1
+        int total = m + n;
+        int gap = nextGap(total);
+
+        while (gap > 0) {
+            int i = 0;
+            while (i + gap < total) {
+                if (nums1[i] > nums1[i + gap]) {
+                    // Swap if out of order
+                    int temp = nums1[i];
+                    nums1[i] = nums1[i + gap];
+                    nums1[i + gap] = temp;
+                }
+                i++;
+            }
+            gap = nextGap(gap);
+        }
+    }
+
+    // Function to calculate the next gap
+    private static int nextGap(int gap) {
+        if (gap <= 1) return 0;
+        return (gap / 2) + (gap % 2);  // round up
+    }
+
+    // Example usage
+    public static void main(String[] args) {
+        int[] nums1 = {1, 2, 3, 0, 0, 0};
+        int m = 3;
+        int[] nums2 = {2, 5, 6};
+        int n = 3;
+
+        merge(nums1, m, nums2, n);
+
+        System.out.print("Merged array: ");
+        for (int num : nums1) {
+            System.out.print(num + " ");
+        }
+    }
+}
