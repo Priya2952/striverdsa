@@ -1,0 +1,48 @@
+/* Definition of singly Linked List:
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int data1) {
+        val = data1;
+        next = null;
+    }
+
+    ListNode(int data1, ListNode next1) {
+        val = data1;
+        next = next1;
+    }
+}
+*/
+
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head == null || head.next == null) return head;
+
+        ListNode zerodummy = new ListNode(0), zerotail = zerodummy;
+        ListNode onedummy = new ListNode(0), onetail = onedummy;
+        ListNode twodummy = new ListNode(0), twotail = twodummy;
+
+        ListNode current = head;
+        while(current != null){
+            if(current.val == 0){
+                zerotail.next = current;
+                zerotail = zerotail.next;
+            }else if(current.val == 1){
+                onetail.next = current;
+                onetail = onetail.next;
+            }else{
+                twotail.next = current;
+                twotail = twotail.next;
+            }
+
+            current = current.next;
+        }
+
+        zerotail.next = onedummy.next!= null ? onedummy.next: twodummy.next;
+        onetail.next = twodummy.next;
+        twotail.next = null;
+
+        return zerodummy.next;
+    }
+}
