@@ -1,0 +1,24 @@
+class Solution {
+    public String prefixToInfix(String s) {
+         Stack<String> stack = new Stack<>();
+
+        // Traverse from right to left
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char ch = s.charAt(i);
+
+            if (Character.isLetterOrDigit(ch)) {
+                // Operand → push as string
+                stack.push(String.valueOf(ch));
+            } else {
+                // Operator → pop two operands
+                String left = stack.pop();
+                String right = stack.pop();
+                String subExpr = "(" + left + ch + right + ")";
+                stack.push(subExpr);
+            }
+        }
+
+        // Final result is the only item left in stack
+        return stack.peek();
+    }
+}
