@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public String postfixToInfix(String expression) {
+        Stack<String> stack = new Stack<>();
+
+        for (char ch : expression.toCharArray()) {
+            if (Character.isLetterOrDigit(ch)) {
+                // Operand → push as string
+                stack.push(Character.toString(ch));
+            } else {
+                // Operator → pop 2 operands
+                String right = stack.pop();
+                String left = stack.pop();
+                // Combine them into a sub-expression with parentheses
+                String subExpr = "(" + left + ch + right + ")";
+                stack.push(subExpr);
+            }
+        }
+
+        // The final item in the stack is the full infix expression
+        return stack.peek();
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println(sol.postfixToInfix("abc*+"));        // Output: (a+(b*c))
+        System.out.println(sol.postfixToInfix("ab+c*"));        // Output: ((a+b)*c)
+        System.out.println(sol.postfixToInfix("ab+cd+*"));      // Output: ((a+b)*(c+d))
+    }
+}
