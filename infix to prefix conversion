@@ -1,0 +1,76 @@
+class Solution {
+
+    // Define operator precedence
+    private static final Map<Character, Integer> precedence = new HashMap<>();
+
+    static {
+        precedence.put('+', 1);
+        precedence.put('-', 1);
+        precedence.put('*', 2);
+        precedence.put('/', 2);
+    }
+
+    // Check if the character is an operand (a-z)
+    private boolean isOperand(char ch) {
+        return Character.isLetter(ch);
+    }
+
+    // Get precedence of operator
+    private int getPrecedence(char op) {
+        return precedence.getOrDefault(op, -1);
+    }
+
+    // Convert infix to postfix
+    private String toPostfix(String expr) {
+        StringBuilder result = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : expr.toCharArray()) {
+            if (isOperand(ch)) {
+                result.append(ch);
+            } else if (ch == '(') {
+                stack.push(ch);
+            } else if (ch == ')') {
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    result.append(stack.pop());
+                }
+                if (!stack.isEmpty()) {
+                    stack.pop(); // Pop '('
+                }
+            } else {
+                while (!stack.isEmpty() && stack.peek() != '(' &&
+                        getPrecedence(ch) <= getPrecedence(stack.peek())) {
+                    result.append(stack.pop());
+                }
+                stack.push(ch);
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            result.append(stack.pop());
+        }
+
+        return result.toString();
+    }
+
+    public String infixToPrefix(String s) {
+        // Step 1: Reverse the input expression
+        StringBuilder reversed = new StringBuilder(s).reverse();
+
+        // Step 2: Swap '(' and ')'
+        for (int i = 0; i < reversed.length(); i++) {
+            char ch = reversed.charAt(i);
+            if (ch == '(') {
+                reversed.setCharAt(i, ')');
+            } else if (ch == ')') {
+                reversed.setCharAt(i, '(');
+            }
+        }
+
+        // Step 3: Convert to postfix
+        String postfix = toPostfix(reversed.toString());
+
+        // Step 4: Reverse postfix to get prefix
+        return new StringBuilder(postfix).reverse().toString();
+    }
+}
