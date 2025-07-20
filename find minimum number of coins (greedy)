@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class MinimumCoins {
+
+    public static int minCoins(int V) {
+        int[] denominations = {1000, 500, 100, 50, 20, 10, 5, 2, 1};
+        int count = 0;
+
+        for (int coin : denominations) {
+            while (V >= coin) {
+                V -= coin;
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int V1 = 70;
+        int V2 = 121;
+
+        System.out.println("Minimum coins/notes for 70: " + minCoins(V1));   // Output: 2
+        System.out.println("Minimum coins/notes for 121: " + minCoins(V2));  // Output: 3
+    }
+}
