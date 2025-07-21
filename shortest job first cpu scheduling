@@ -1,0 +1,14 @@
+public class Solution {
+    public static int averageWaitingTime(int[] bt) {
+        Arrays.sort(bt); // Sort burst times for SJF
+        int n = bt.length;
+        int waitingTime = 0;
+        int totalWaitingTime = 0;
+
+        for (int i = 1; i < n; i++) {
+            waitingTime += bt[i - 1];         // Add previous burst time
+            totalWaitingTime += waitingTime;  // Accumulate waiting time
+        }
+
+        return totalWaitingTime / n; // Floor division
+    }
