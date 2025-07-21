@@ -1,0 +1,38 @@
+class Solution {
+    public int[] JobScheduling(int[][] Jobs) {
+        // Sort the jobs in descending order of profit
+        Arrays.sort(Jobs, (a, b) -> b[2] - a[2]); // Compare profits
+
+        // Find the maximum deadline to define time slots
+        int maxDeadline = 0;
+        for (int[] job : Jobs) {
+            maxDeadline = Math.max(maxDeadline, job[1]);
+        }
+
+        // Create an array to track free time slots (index 1 to maxDeadline)
+        int[] slots = new int[maxDeadline + 1];
+        Arrays.fill(slots, -1); // -1 means free
+
+        int countJobs = 0;
+        int totalProfit = 0;
+
+        // Try placing each job in the latest possible slot before its deadline
+        for (int[] job : Jobs) {
+            int jobId = job[0];
+            int deadline = job[1];
+            int profit = job[2];
+
+            // Traverse backwards to find a free slot before deadline
+            for (int j = deadline; j > 0; j--) {
+                if (slots[j] == -1) {
+                    slots[j] = jobId; // Assign job id to that time slot
+                    countJobs++;
+                    totalProfit += profit;
+                    break; // move to next job
+                }
+            }
+        }
+
+        return new int[]{countJobs, totalProfit};
+    }
+}
