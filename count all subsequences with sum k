@@ -1,0 +1,16 @@
+class Solution {
+    public int countSubsequenceWithTargetSum(int[] nums, int k) {
+       return count(0,0,nums,k);
+    }
+
+    private int count(int index, int sum, int[] nums, int k){
+        if(index == nums.length){
+            return sum == k ? 1 : 0;
+        }
+
+        int include = count(index + 1, sum + nums[index], nums, k);
+        int exclude = count(index + 1 , sum, nums, k);
+
+        retur  include + exclude;
+    }
+}
