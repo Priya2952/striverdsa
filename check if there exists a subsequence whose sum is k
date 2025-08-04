@@ -1,0 +1,30 @@
+class Solution {
+    public boolean checkSubsequenceSum(int[] nums, int k) {
+         return helper(0,0,nums,k);
+    }
+
+     private boolean helper(int index, int sum, int[] nums, int k) {
+       
+        if (index == nums.length) {
+            return sum == k;
+        }
+
+       
+        if (index == nums.length) {
+            return sum == k;
+        }
+
+        
+        if (helper(index + 1, sum + nums[index], nums, k)) {
+            return true;
+        }
+
+        
+        if (helper(index + 1, sum, nums, k)) {
+            return true;
+        }
+
+       
+        return false;
+   }
+}
