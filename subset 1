@@ -1,0 +1,25 @@
+import java.util.*;
+
+public class SubsetSum1 {
+    public static void main(String[] args) {
+        int[] arr = {5, 2, 1}; // Example input
+        List<Integer> ans = new ArrayList<>();
+        subsetSum(0, 0, arr, ans);
+
+        Collections.sort(ans); // Sort in increasing order
+        System.out.println(ans);
+    }
+
+    static void subsetSum(int index, int sum, int[] arr, List<Integer> ans) {
+        if (index == arr.length) {
+            ans.add(sum);
+            return;
+        }
+
+        // Pick the current element
+        subsetSum(index + 1, sum + arr[index], arr, ans);
+
+        // Don't pick the current element
+        subsetSum(index + 1, sum, arr, ans);
+    }
+}
