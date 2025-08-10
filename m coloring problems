@@ -1,0 +1,39 @@
+class Solution {
+    boolean graphColoring(int v, int[][] edges, int m) {
+        // Build adjacency matrix from edge list
+        boolean[][] graph = new boolean[v][v];
+        for (int[] e : edges) {
+            int u = e[0];
+            int w = e[1];
+            graph[u][w] = true;
+            graph[w][u] = true; // undirected graph
+        }
+
+        int[] colors = new int[v]; // 0 means uncolored
+
+        return solve(0, graph, colors, m, v);
+    }
+
+    boolean solve(int node, boolean[][] graph, int[] colors, int m, int v) {
+        if (node == v) return true; // all vertices colored
+
+        // Try all colors from 1 to m
+        for (int col = 1; col <= m; col++) {
+            if (isSafe(node, graph, colors, col, v)) {
+                colors[node] = col;
+                if (solve(node + 1, graph, colors, m, v)) return true;
+                colors[node] = 0; // backtrack
+            }
+        }
+        return false;
+    }
+
+    boolean isSafe(int node, boolean[][] graph, int[] colors, int col, int v) {
+        for (int k = 0; k < v; k++) {
+            if (graph[node][k] && colors[k] == col) {
+                return false; // neighbor has same color
+            }
+        }
+        return true;
+    }
+}
