@@ -1,0 +1,17 @@
+class Solution {
+    public int repeatedStringMatch(String a, String b) {
+      int k = (int) Math.ceil((double) b.length()/a.length());
+
+      String repeated = a.repeat(k);
+      if(repeated.contains(b)){
+        return k;
+      } 
+
+      repeated = a.repeat(k+1);
+      if(repeated.contains(b)){
+        return k + 1;
+      } 
+
+      return -1;
+    }
+}
