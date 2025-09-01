@@ -1,0 +1,35 @@
+class Solution {
+    public int kthLargest(TreeNode root, int k) {
+        TreeNode node = root;
+        int count = 0;
+
+        while (node != null) {
+            if (node.right == null) {
+                // No right child → visit this node
+                count++;
+                if (count == k) return node.val;
+                node = node.left; // go left
+            } else {
+                // Find inorder successor (leftmost of right subtree)
+                TreeNode successor = node.right;
+                while (successor.left != null && successor.left != node) {
+                    successor = successor.left;
+                }
+
+                if (successor.left == null) {
+                    // First time → create thread
+                    successor.left = node;
+                    node = node.right;
+                } else {
+                    // Second time → remove thread and visit
+                    successor.left = null;
+                    count++;
+                    if (count == k) return node.val;
+                    node = node.left;
+                }
+            }
+        }
+
+        return -1; // not found
+    }
+}
