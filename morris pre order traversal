@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int data;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int val) { data = val; left = null, right = null }
+ * }
+ **/
+
+class Solution {
+    public List<Integer> preorder(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        TreeNode current = root;
+
+        while (current != null) {
+            if (current.left == null) {
+                // No left child → visit directly
+                result.add(current.data);
+                current = current.right;
+            } else {
+                // Find inorder predecessor
+                TreeNode predecessor = current.left;
+                while (predecessor.right != null && predecessor.right != current) {
+                    predecessor = predecessor.right;
+                }
+
+                if (predecessor.right == null) {
+                    // First time visiting current → add to result (Preorder: Root first)
+                    result.add(current.data);
+                    predecessor.right = current;  // Make thread
+                    current = current.left;
+                } else {
+                    // Thread already exists → remove it
+                    predecessor.right = null;
+                    current = current.right;
+                }
+            }
+        }
+        return result;
+    }
+}
